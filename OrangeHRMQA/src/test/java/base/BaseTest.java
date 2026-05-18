@@ -1,13 +1,46 @@
 package base;
 
-import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.main.pages.LoginPage;
+import org.main.pages.HomePage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import util.constants.BaseTestConstants;
 
 public class BaseTest {
 
+    protected LoginPage login;
+    protected HomePage home;
+    protected WebDriver driver;
 
-    @Test
-    public void smokeTest(){
-        Assert.assertEquals(1, 1);
+    @BeforeSuite
+    public void setDriver() {
+        WebDriverManager.firefoxdriver().setup();
     }
+
+    @BeforeClass()
+    public void beforeClass() {
+
+        driver = new FirefoxDriver();
+        driver.get(BaseTestConstants.BASE_URL);
+        login = new LoginPage(driver);
+
+    }
+
+    public void loginAsDefaultUser() {
+
+        if(!login.isLoaded()) return;
+        home = login.completeLogin(BaseTestConstants.BASE_USERNAME, BaseTestConstants.BASE_PASSWORD);
+    }
+
+
+    @AfterClass
+    public void afterClass() {
+        driver.quit();
+    }
+
 }

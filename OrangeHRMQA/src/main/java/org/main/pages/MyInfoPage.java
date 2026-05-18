@@ -1,4 +1,4 @@
 package org.main.pages;
 
-public class Page {
+public class MyInfoPage {
 }
