@@ -1,4 +1,4 @@
 package org.main.util.constants;
 
-public class Constants {
+public class MyInfoPageConstants {
 }
